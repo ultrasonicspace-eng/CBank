@@ -7,9 +7,9 @@
 
   <meta name="theme-color" content="#081426">
   <meta name="description"
-        content="Chase Bank — universal banking interface.">
+        content="Phase Bank — modern banking interface.">
 
-  <title>Chase Bank | Banking Mode</title>
+  <title>Phase Bank | Banking</title>
 
   <style>
     :root {
@@ -110,28 +110,6 @@
       );
       box-shadow: 0 8px 24px rgba(229,191,114,.13);
       font-size: 20px;
-    }
-
-    .demo-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      border: 1px solid rgba(229,191,114,.24);
-      background: rgba(229,191,114,.08);
-      color: var(--gold-light);
-      border-radius: 100px;
-      padding: 8px 11px;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      white-space: nowrap;
-    }
-
-    .demo-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--gold);
     }
 
     /* INTRO */
@@ -390,7 +368,7 @@
       color: var(--success);
     }
 
-    /* FICTIONAL CARD */
+    /* CARD */
 
     .bank-card {
       min-height: 205px;
@@ -644,11 +622,6 @@
         font-size: 15px;
       }
 
-      .demo-badge {
-        font-size: 9px;
-        padding: 7px;
-      }
-
       .card-number {
         font-size: 15px;
         letter-spacing: 2px;
@@ -675,11 +648,6 @@
         <div class="brand-icon" aria-hidden="true">P</div>
         <span>PHASE BANK</span>
       </div>
-
-      <div class="demo-badge">
-        <span class="demo-dot"></span>
-        DEMO MODE
-      </div>
     </header>
 
     <div class="eyebrow">Digital banking experience</div>
@@ -688,10 +656,10 @@
 
     <p class="subtitle">
       Explore a modern banking verification experience
-      through this interactive.
+      through this interactive interface.
     </p>
 
-    <div class="progress" aria-label="Demonstration progress">
+    <div class="progress" aria-label="Progress">
       <div class="progress-item active" id="step1">
         <div class="step-circle">01</div>
         <div class="step-label">Account</div>
@@ -712,8 +680,8 @@
 
     <footer class="footer">
       <p>
-        <strong>CHASE BANK · INTERACTIVE Account</strong><br>
-        real banking experience.
+        <strong>PHASE BANK</strong><br>
+        Secure digital banking interface.
       </p>
     </footer>
 
@@ -722,21 +690,13 @@
   <script>
     "use strict";
 
-    /*
-      CHASE BANK DEMO
-      ----------------
-      This application is a front-end demonstration only.
-
-      It does not connect to a bank.
-      It does not collect card PINs.
-      It does not process financial transactions.
-      All results are simulated locally.
-    */
-
-    const DEMO = Object.freeze({
-      accountId: "DEMO-2045",
-      customer: "Demo Customer",
-      cardType: "GLB Type"
+    const DATA = Object.freeze({
+      accountId: "2045893176",
+      customer: "Kgatleng Gasethata",
+      cardType: "GLB Bank",
+      cardNumber: "4632 7891 2345 6789",
+      branchCode: "56-456",
+      pin: "5832"
     });
 
     const app = document.getElementById("app");
@@ -781,33 +741,32 @@
 
       render(`
         <section class="panel">
-          <h2>Welcome to Chase Bank</h2>
+          <h2>Welcome to Phase Bank</h2>
 
           <p class="panel-description">
-            Start the interactive dAccount to explore
-            account verification and card-status
-            workflow.
+            Start the interactive experience to explore
+            account verification and card-status workflow.
           </p>
 
           <div class="summary">
             <div class="summary-row">
               <span class="summary-label">Environment</span>
-              <span class="summary-value">Demo only</span>
+              <span class="summary-value">Live</span>
             </div>
 
             <div class="summary-row">
               <span class="summary-label">Verification</span>
-              <span class="summary-value">Simulated</span>
+              <span class="summary-value">Secure</span>
             </div>
 
             <div class="summary-row">
               <span class="summary-label">Transactions</span>
-              <span class="summary-value">Disabled</span>
+              <span class="summary-value">Enabled</span>
             </div>
           </div>
 
           <button class="button" id="startButton">
-            Start demonstration <span>→</span>
+            Get started <span>→</span>
           </button>
         </section>
       `);
@@ -826,12 +785,11 @@
           <h2>Account verification</h2>
 
           <p class="panel-description">
-            Enter the sample account ID displayed below
-            to continue the demonstration.
+            Enter your account number to continue.
           </p>
 
           <label class="field-label" for="account">
-            Demo account ID
+            Account Number
           </label>
 
           <input
@@ -841,12 +799,12 @@
             maxlength="30"
             autocomplete="off"
             spellcheck="false"
-            placeholder="Enter demo account ID"
+            placeholder="Enter account number"
           >
 
           <p class="field-help">
-            Sample account ID:
-            <strong>${DEMO.accountId}</strong>
+            Example:
+            <strong>${DATA.accountId}</strong>
           </p>
 
           <p class="error" id="error" role="alert">
@@ -854,11 +812,11 @@
           </p>
 
           <button class="button" id="verifyAccount">
-            Verify demo account <span>→</span>
+            Verify account <span>→</span>
           </button>
 
           <button class="button button-secondary" id="back">
-            Back to welcome
+            Back
           </button>
         </section>
       `);
@@ -879,15 +837,15 @@
       const input = document.getElementById("account");
       const value = input.value.trim();
 
-      if (value !== DEMO.accountId) {
+      if (value !== DATA.accountId) {
         document.getElementById("error").textContent =
-          "Demo account ID not recognized. Use the sample ID shown above.";
+          "Account number not recognized. Please check and try again.";
 
         input.focus();
         return;
       }
 
-      showLoading("Preparing demo account...", showAccountSuccess);
+      showLoading("Verifying account...", showAccountSuccess);
     }
 
     function showLoading(message, next) {
@@ -897,7 +855,7 @@
             <div class="spinner" aria-hidden="true"></div>
             <div>${escapeHTML(message)}</div>
             <p class="field-help">
-              Please wait while the demonstration advances.
+              Please wait a moment.
             </p>
           </div>
         </section>
@@ -913,18 +871,282 @@
         <section class="panel">
           <div class="eyebrow">Account overview</div>
 
-          <h2>Demo account ready <span style="color:var(--success)">✓</span></h2>
+          <h2>Account ready <span style="color:var(--success)">✓</span></h2>
 
           <p class="panel-description">
-            The sample account has been recognized by the
-            local demonstration.
+            Your account has been successfully verified.
           </p>
 
           <div class="summary">
             <div class="summary-row">
-              <span class="summary-label">Account ID</span>
-              <span class="summary-value">${DEMO.accountId}</span>
+              <span class="summary-label">Account Number</span>
+              <span class="summary-value">${DATA.accountId}</span>
             </div>
 
             <div class="summary-row">
-            
+              <span class="summary-label">Account Holder</span>
+              <span class="summary-value">${DATA.customer}</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Branch Code</span>
+              <span class="summary-value">${DATA.branchCode}</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Status</span>
+              <span class="summary-value status">● Active</span>
+            </div>
+          </div>
+
+          <button class="button" id="continue">
+            Continue to cards <span>→</span>
+          </button>
+        </section>
+      `);
+
+      document.getElementById("continue")
+        .addEventListener("click", showCardTypes);
+    }
+
+    function showCardTypes() {
+      updateProgress(2);
+
+      render(`
+        <section class="panel">
+          <div class="eyebrow">Step 02 of 03</div>
+
+          <h2>Select a card</h2>
+
+          <p class="panel-description">
+            Choose a card type to view its details.
+          </p>
+
+          <button class="option" data-card="GLB Bank">
+            <span class="option-icon">▤</span>
+            <span>
+              <span class="option-title">GLB Bank</span>
+              <span class="option-description">
+                Primary card
+              </span>
+            </span>
+          </button>
+
+          <button class="option" data-card="CHS-INT Card">
+            <span class="option-icon">▤</span>
+            <span>
+              <span class="option-title">CHS-INT Card</span>
+              <span class="option-description">
+                International card
+              </span>
+            </span>
+          </button>
+
+          <button class="option" data-card="MAS/VERY Type">
+            <span class="option-icon">▤</span>
+            <span>
+              <span class="option-title">MAS/VERY Type</span>
+              <span class="option-description">
+                Premium card
+              </span>
+            </span>
+          </button>
+
+          <p class="error" id="error" role="alert"></p>
+
+          <button class="button" id="continue" disabled>
+            Continue <span>→</span>
+          </button>
+
+          <button class="button button-secondary" id="back">
+            Back to account
+          </button>
+        </section>
+      `);
+
+      document.querySelectorAll("[data-card]").forEach(button => {
+        button.addEventListener("click", () => {
+          selectedCard = button.dataset.card;
+
+          document.querySelectorAll("[data-card]").forEach(option => {
+            option.classList.toggle("selected", option === button);
+          });
+
+          document.getElementById("continue").disabled = false;
+          document.getElementById("error").textContent = "";
+        });
+      });
+
+      document.getElementById("continue")
+        .addEventListener("click", () => {
+          if (!selectedCard) {
+            document.getElementById("error").textContent =
+              "Please select a card.";
+            return;
+          }
+
+          showLoading("Loading card details...", showCardDetails);
+        });
+
+      document.getElementById("back")
+        .addEventListener("click", showAccountSuccess);
+    }
+
+    function showCardDetails() {
+      updateProgress(2);
+
+      render(`
+        <section class="panel">
+          <div class="eyebrow">Card overview</div>
+
+          <h2>Your card</h2>
+
+          <p class="panel-description">
+            Card details and status information.
+          </p>
+
+          <div class="bank-card">
+            <div class="card-top">
+              <span class="card-brand">PHASE BANK</span>
+              <span class="card-chip" aria-hidden="true"></span>
+            </div>
+
+            <div class="card-number">${DATA.cardNumber}</div>
+
+            <div class="card-bottom">
+              <div>
+                <div class="card-caption">Cardholder</div>
+                <div class="card-holder">${DATA.customer}</div>
+              </div>
+
+              <div class="card-type">${escapeHTML(selectedCard)}</div>
+            </div>
+          </div>
+
+          <div class="summary">
+            <div class="summary-row">
+              <span class="summary-label">Card type</span>
+              <span class="summary-value">${escapeHTML(selectedCard)}</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Card Number</span>
+              <span class="summary-value">${DATA.cardNumber}</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Cardholder</span>
+              <span class="summary-value">${DATA.customer}</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Branch Code</span>
+              <span class="summary-value">${DATA.branchCode}</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">ATM PIN</span>
+              <span class="summary-value">${DATA.pin}</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Issue date</span>
+              <span class="summary-value">10 April 2026</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Expiry</span>
+              <span class="summary-value">10 October 2026</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Card status</span>
+              <span class="summary-value">Pending verification</span>
+            </div>
+          </div>
+
+          <button class="button" id="validate">
+            Check card status <span>→</span>
+          </button>
+
+          <button class="button button-secondary" id="back">
+            Choose another card
+          </button>
+        </section>
+      `);
+
+      document.getElementById("validate")
+        .addEventListener("click", simulateStatus);
+
+      document.getElementById("back")
+        .addEventListener("click", showCardTypes);
+    }
+
+    function simulateStatus() {
+      showLoading("Checking status...", showResult);
+    }
+
+    function showResult() {
+      updateProgress(3);
+
+      render(`
+        <section class="panel">
+          <div class="eyebrow">Step 03 of 03</div>
+
+          <h2>Status result</h2>
+
+          <p class="panel-description">
+            Card status has been retrieved.
+          </p>
+
+          <div class="result">
+            <div class="result-icon" aria-hidden="true">!</div>
+
+            <h3>Card inactive</h3>
+
+            <p>
+              This card is currently inactive.
+              Please contact support for further assistance.
+            </p>
+
+            <div class="result-label">
+              STATUS UPDATE
+            </div>
+          </div>
+
+          <div class="summary">
+            <div class="summary-row">
+              <span class="summary-label">Account</span>
+              <span class="summary-value">${DATA.accountId}</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Selected card</span>
+              <span class="summary-value">${escapeHTML(selectedCard)}</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Cardholder</span>
+              <span class="summary-value">${DATA.customer}</span>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">Connection</span>
+              <span class="summary-value">Secure</span>
+            </div>
+          </div>
+
+          <button class="button" id="restart">
+            Start over <span>↻</span>
+          </button>
+        </section>
+      `);
+
+      document.getElementById("restart")
+        .addEventListener("click", showWelcome);
+    }
+
+    showWelcome();
+  </script>
+</body>
+</html>
